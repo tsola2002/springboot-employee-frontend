@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../employee';
 import { EmployeeService } from '../employee.service';
 
@@ -11,7 +11,7 @@ import { EmployeeService } from '../employee.service';
 export class UpdateEmployeeComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService,
-  private route: ActivatedRoute) { }
+  private route: ActivatedRoute, private router: Router) { }
 
   id: number;
   employee: Employee = new Employee();
@@ -28,7 +28,15 @@ export class UpdateEmployeeComponent implements OnInit {
   onSubmit() {
     // TO CHECK THAT THE FORM IS SUBMITTING
     //console.log("EMPLOYEE INPUT", this.employee);
-    //this.saveEmployee();
+    this.employeeService.updateEmployee(this.id, this.employee).subscribe(data => {
+      this.goToEmployeeList();
+    },
+      error => console.log(error)
+    )
+  }
+
+  goToEmployeeList() {
+    this.router.navigate(['/employees']);
   }
 
 }
