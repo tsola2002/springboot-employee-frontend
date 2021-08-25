@@ -33,7 +33,7 @@ export class UpdateEmployeeComponent implements OnInit {
     },
       error => console.log(error)
     )
-  }
+  } 
 
   goToEmployeeList() {
     this.router.navigate(['/employees']);

@@ -28,11 +28,18 @@ export class EmployeeListComponent implements OnInit {
   private getEmployees() {
     this.employeeService.getEmployeesList().subscribe(data => {
       this.employees = data;
-      console.log("EMPLOYEE LIST2", this.employees);
+      console.log("RETRIEVED EMPLOYEES", this.employees);
     });
   }
 
   updateEmployee(id: number) {
     this.router.navigate(['update-employee', id]);
+  }
+
+  deleteEmployee(id: number) {
+    this.employeeService.deleteEmployee(id).subscribe(data => {
+      console.log("DELETED EMPLOYEE", data)
+      this.getEmployees();
+    })
   }
 }
